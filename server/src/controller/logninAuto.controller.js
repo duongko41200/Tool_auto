@@ -62,7 +62,7 @@ const scrollWithRandomSpeedAndPosition = async (driver) => {
 
 	const sleep = parseInt(Math.random() * (1000 - 200 + 100) + 200);
 
-	const isScrollUp = parseInt(Math.random() * (100 - 1 + 1) + 1);
+	const isScrollUp = parseInt(Math.random() * (500 - 1 + 1) + 1);
 
 	// Cuộn xuống dưới
 	// await driver.executeScript("window.scrollTo(0, document.body.scrollHeight);");
@@ -80,15 +80,16 @@ const scrollWithRandomSpeedAndPosition = async (driver) => {
 	// Cuộn lên trên
 	if (isScrollUp % 2 === 0) {
 		countScrollUp++;
-		if (countScrollUp === 5 || isScrollUp % 3 === 0) {
+		if (countScrollUp === 10 || isScrollUp % 4 === 0) {
 			const scrollSpeed1 = parseInt(Math.random() * (500 - 100) + 100);
-			const dy1 = parseInt(Math.random() * (300 - 10 + 1) + 70);
+			const dy1 = parseInt(Math.random() * (500 - 10 + 1) + 100);
 			try {
+				console.log("đã cuộn lên")
 				await driver.actions().scroll(0, -`${dy1}`, 0, 200).perform();
 			} catch (error) {
 				await driver.actions().scroll(0, 0, 0, 200).perform();
 			}
-			if (countScrollUp === 5) {
+			if (countScrollUp === 10) {
 				countScrollUp = 0;
 			}
 			await driver.sleep(sleep);
@@ -99,11 +100,15 @@ const scrollWithRandomSpeedAndPosition = async (driver) => {
 		console.log('da like auto');
 
 		try {
-			const likeButtons = await driver.findElement(
-				By.css(' svg[aria-label="Like"]')
+			const likeButtons = await driver.findElements(
+				By.css('svg[aria-label="Like"]')
 			);
 
-			await likeButtons.click();
+
+
+			console.log('Số lượng phần tử tìm thấy:', likeButtons.length);
+
+			await likeButtons[4].click();
 
 			like = like - 1;
 			console.log('số like còn ;', like);
