@@ -1,25 +1,49 @@
 <template>
 	<div class="hello">
-		<div>
-			<input v-model="username" placeholder="username" />
-			<input v-model="password" placeholder="password" />
-			<button @click="autoLoginFB">login</button>
+		<div class="p-3 mb-3 d-flex gap-2">
+			<div>
+				<button @click="exportToExcel" style="margin: 10xp">
+					Xuất Excel
+				</button>
+			</div>
+			<div>
+				<button class="importBtn">
+					<label for="file">Import Excel</label>
+					<input
+						class="d-none"
+						type="file"
+						id="file"
+						accept=".json"
+						@input="handleFileUpload"
+					/>
+				</button>
+			</div>
+
+			<div>
+				<button @click="autoLoginFB">login</button>
+			</div>
+
+			<div>
+				<b-button v-b-modal.modal-1>Auto Like</b-button>
+
+				<b-modal id="modal-1" title="LIKE" hide-footer>
+					<div class="row flex justify-content-end">
+						<input
+							type="number"
+							placeholder="nhập số like muốn"
+							class="mb-4"
+							style="height: 50px"
+							v-model="numberLike"
+						/>
+
+						<div>
+							<b-button @click="saveLike"> Save </b-button>
+						</div>
+					</div>
+				</b-modal>
+			</div>
 		</div>
 		<div>
-			<button @click="exportToExcel" style="margin: 10xp">
-				Xuất Excel
-			</button>
-
-			<button class="importBtn">
-				<label for="file">Import Excel</label>
-				<input
-					class="d-none"
-					type="file"
-					id="file"
-					accept=".json"
-					@input="handleFileUpload"
-				/>
-			</button>
 			<table class="table table-striped" id="dataTable" ref="dataTable">
 				<thead>
 					<tr>
@@ -46,7 +70,7 @@
 <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
 <!-- <script src="https://cdn.skypack.dev/xlsx"></script> -->
 <script>
-import AutoLogin from '@/services/logi.auto.service';
+import AutoFeature from '@/services/logi.auto.service';
 // import XLSX from 'xlsx';
 // import * as XLSX from 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js';
 
@@ -59,6 +83,7 @@ export default {
 		return {
 			username: '',
 			password: '',
+			numberLike:'',
 			items: [
 				// { username: 'dmagnetism@gmail.com', password: 'Dan23t8n19@@' },
 				// {
@@ -70,10 +95,11 @@ export default {
 	},
 	methods: {
 		async autoLoginFB() {
-			await AutoLogin.loginAuto({
+			await AutoFeature.loginAuto({
 				param: this.items,
 			});
 		},
+
 		exportToExcel() {
 			const table = document.getElementById('dataTable');
 			const rows = table.querySelectorAll('tbody tr');
@@ -134,6 +160,11 @@ export default {
 
 			reader.readAsArrayBuffer(file);
 		},
+
+		async saveLike(){
+			console.log("ksdjfksdjf")
+			await AutoFeature.likeAuto({numberLike:this.numberLike})
+		}
 	},
 };
 </script>

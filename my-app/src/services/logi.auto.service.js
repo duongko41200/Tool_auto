@@ -3,7 +3,7 @@ import ApiService from './api.service';
 
 const baseUrl = 'auto/';
 
-const AutoLogin = {
+const AutoFeature = {
 	// /**
 	//  * Get user info
 	//  * @param {Params} params
@@ -21,7 +21,10 @@ const AutoLogin = {
 	async loginAuto(params) {
 		return ApiService.post(baseUrl + 'loginAuto', params);
 	},
+	async likeAuto(params) {
+		return ApiService.post(baseUrl + 'likeAuto', params);
+	},
 
 };
 
-export default AutoLogin;
+export default AutoFeature;

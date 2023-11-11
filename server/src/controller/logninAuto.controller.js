@@ -1,13 +1,6 @@
 const { Builder, By, Key, until } = require('selenium-webdriver');
 
-
-
-
-
-let like = false;
-
-
-
+let like = 0;
 
 const AutoSelenium = async (username, password) => {
 	const driver = await new Builder().forBrowser('chrome').build();
@@ -33,7 +26,7 @@ const AutoSelenium = async (username, password) => {
 		await driver.sleep(4000);
 		await driver.get('https://www.instagram.com/');
 
-		await driver.sleep(1000);
+		await driver.sleep(2000);
 
 		// const notNowButton = await driver.findElement(By.xpath('//div[text()="Not Now"]'))
 		const notNowButton = await driver.findElement(
@@ -54,7 +47,6 @@ const AutoSelenium = async (username, password) => {
 			} catch (error) {
 				isShowAuto = false;
 			}
-		
 		}
 	} finally {
 		// Đóng trình duyệt khi hoàn thành
@@ -84,13 +76,12 @@ const scrollWithRandomSpeedAndPosition = async (driver) => {
 	// Tạm nghỉ
 
 	await driver.sleep(sleep);
-	let countScrollUp = 0
+	let countScrollUp = 0;
 	// Cuộn lên trên
 	if (isScrollUp % 2 === 0) {
-
-		countScrollUp ++
+		countScrollUp++;
 		if (countScrollUp === 5 || isScrollUp % 3 === 0) {
-			const scrollSpeed1 =parseInt(Math.random() * (500 - 100) + 100);
+			const scrollSpeed1 = parseInt(Math.random() * (500 - 100) + 100);
 			const dy1 = parseInt(Math.random() * (300 - 10 + 1) + 70);
 			try {
 				await driver.actions().scroll(0, -`${dy1}`, 0, 200).perform();
@@ -98,25 +89,39 @@ const scrollWithRandomSpeedAndPosition = async (driver) => {
 				await driver.actions().scroll(0, 0, 0, 200).perform();
 			}
 			if (countScrollUp === 5) {
-				countScrollUp = 0
+				countScrollUp = 0;
 			}
 			await driver.sleep(sleep);
 		}
+	}
 
-	
+	if (20 < isScrollUp < 33 && isScrollUp % 4 === 0 && like > 0) {
+		console.log('da like auto');
+
+		try {
+			const likeButtons = await driver.findElement(
+				By.css(' svg[aria-label="Like"]')
+			);
+
+			await likeButtons.click();
+
+			like = like - 1;
+			console.log('số like còn ;', like);
+		} catch (error) {
+			console.log('Không tìm thấy: ' + error);
+		}
 	}
 
 	// Tạm nghỉ
 	// await driver.sleep(sleep);
 };
 
-
 /**
  * Feature Auto
- * 
+ *
  * 1. AutoLogin (tự động đăng nhập)
- * 2. AutoLike (tự đông like -trang chủ)
- * 
+ * 2. AutoLike (tự đông like - ở trang chủ)
+ *
  */
 
 const AutoLogin = async (req, res) => {
@@ -133,11 +138,16 @@ const AutoLogin = async (req, res) => {
 	});
 };
 
-
 const AutoLike = async (req, res) => {
+	console.log(req.body);
 
+	like = req.body.numberLike;
+	res.status(200).json({
+		status: 'success',
+	});
 };
 
 module.exports = {
-	AutoLogin, AutoLike
+	AutoLogin,
+	AutoLike,
 };
