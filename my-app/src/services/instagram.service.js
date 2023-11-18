@@ -1,9 +1,9 @@
 
 import ApiService from './api.service';
 
-const baseUrl = 'auto/';
+const baseUrl = 'instagram/';
 
-const AutoFeature = {
+const InstagramService = {
 	// /**
 	//  * Get user info
 	//  * @param {Params} params
@@ -18,16 +18,14 @@ const AutoFeature = {
 	 * @param {Params} params
 	 * @returns {Response} response
 	 */
-	async loginAuto(params) {
-		return ApiService.post(baseUrl + 'loginAuto', params);
+	async searchUser(params) {
+		return ApiService.post(baseUrl + 'searchUser', params);
 	},
-	async likeAuto(params) {
-		return ApiService.post(baseUrl + 'likeAuto', params);
+	async detailProfile(params) {
+		return ApiService.get(baseUrl + 'detailAccount', params);
 	},
-	async testAuto(params) {
-		return ApiService.get(baseUrl + 'testAuto', params);
-	},
+
 
 };
 
-export default AutoFeature;
+export default InstagramService;

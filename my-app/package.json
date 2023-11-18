@@ -19,6 +19,7 @@
     "core-js": "^3.8.3",
     "dotenv-cli": "^7.3.0",
     "vue": "^2.7.15",
+    "vue-router": "^3.5.2",
     "vuex": "^4.1.0",
     "vuex-map-fields": "^1.4.1",
     "xlsx": "^0.18.5",

@@ -20,11 +20,11 @@
 			</div>
 
 			<div>
-				<button @click="autoLoginFB">login</button>
+				<button @click="onListLogin">Add Account</button>
 			</div>
 
 			<div>
-				<b-button v-b-modal.modal-1>Auto Like</b-button>
+				<button v-b-modal.modal-1>Auto Like</button>
 
 				<b-modal id="modal-1" title="LIKE" hide-footer>
 					<div class="row flex justify-content-end">
@@ -42,27 +42,15 @@
 					</div>
 				</b-modal>
 			</div>
+
+			<div>
+				<button @click="onClickFollow">Follow</button>
+			</div>
 		</div>
-		<div>
-			<table class="table table-striped" id="dataTable" ref="dataTable">
-				<thead>
-					<tr>
-						<th scope="col">STT</th>
-						<th scope="col">username</th>
-						<th scope="col">password</th>
-						<th scope="col">Handle</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr v-for="(item, idx) in items" :key="idx">
-						<th scope="row">{{ idx + 1 }}</th>
-						<td>{{ item.username }}</td>
-						<td>{{ item.password }}</td>
-						<td></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+
+		<listLogin v-if="isLogin === true" :items="items" @autoLoginFB="autoLoginFB"></listLogin>
+		<instagramUser v-if="isFollow === true"></instagramUser>
+		
 	</div>
 </template>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.5.0/jszip.min.js"></script>
@@ -71,6 +59,8 @@
 <!-- <script src="https://cdn.skypack.dev/xlsx"></script> -->
 <script>
 import AutoFeature from '@/services/logi.auto.service';
+import listLogin from '@/components/listLogin.vue'
+import instagramUser from '@/components/instagramUser.vue'
 // import XLSX from 'xlsx';
 // import * as XLSX from 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js';
 
@@ -78,6 +68,10 @@ export default {
 	name: 'HelloWorld',
 	props: {
 		msg: String,
+	},
+	components: {
+		listLogin,
+		instagramUser
 	},
 	data() {
 		return {
@@ -91,6 +85,8 @@ export default {
 				// 	password: 'Da230819@@',
 				// },
 			],
+			isLogin:true,
+			isFollow:false,
 		};
 	},
 	methods: {
@@ -164,6 +160,19 @@ export default {
 		async saveLike(){
 			console.log("ksdjfksdjf")
 			await AutoFeature.likeAuto({numberLike:this.numberLike})
+		},
+		async onTestAuto(){
+
+			const test = await AutoFeature.testAuto()
+			console.log("tewst Auto Kjkfjsdkfjskdl: ",test)
+		},
+		onClickFollow(){
+			this.isFollow = true
+			this.isLogin = false
+		},
+		onListLogin(){
+			this.isFollow = false
+			this.isLogin = true
 		}
 	},
 };
@@ -185,4 +194,5 @@ li {
 a {
 	color: #42b983;
 }
+
 </style>

@@ -10,6 +10,7 @@ const AutoLoginApi = (app) => {
 
 
 
+
 	return app.use('/api/auto', router);
 };
 
