@@ -6,17 +6,22 @@ export default {
 
 	state() {
 		return {
-			imageProfile:''
+			imageProfile: '',
+			dataAccount:''
 
 		};
 	},
 
 	actions: {
 
+
 	},
 
 	mutations: {
 		updateField,
+		SET_ACCOUNT_INSTAGRAM(state, payload) {
+			state.dataAccount = payload
+		}
 
 	},
 

@@ -1,10 +1,12 @@
 
-import { createStore } from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 import listAccount from './listAccount.js'
+Vue.use(Vuex);
 
-export default createStore({
-	modules: {
+export default new Vuex.Store({
 
-		listAccount
-	},
-});
+  modules: {
+	listAccount
+  }
+})
