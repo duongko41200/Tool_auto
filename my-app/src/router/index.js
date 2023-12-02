@@ -6,14 +6,15 @@ import VueRouter from 'vue-router';
 
  
 // import home from '../pages/home';
-import HomeLayout from '@/components/HelloWorld.vue';
+// import HomeLayout from '@/components/HelloWorld.vue';
+import homeLayout from '@/views/homeLayout.vue'
 // import profile from '../pages/profile';
 
 const routes = [
 	{
 		name: 'HomeLayout',
 		path: '/',
-		component: HomeLayout,
+		component: homeLayout,
 		// children: [
 		// 	{
 		// 		name: 'profile',

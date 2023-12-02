@@ -65,6 +65,11 @@ app.on('ready', async () => {
   createWindow()
 })
 
+// ipcMain.on('open-app', () => {
+//   // Xử lý logic mở ứng dụng ở đây
+//   console.log('Received open-app event');
+// });
+
 // Exit cleanly on request from parent process in development mode.
 if (isDevelopment) {
   if (process.platform === 'win32') {

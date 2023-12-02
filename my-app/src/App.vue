@@ -1,17 +1,18 @@
 <template>
   <div id="app">
     
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+   <router-view></router-view>
   </div>
 </template>
-
+<script src="../node_modules/ckeditor4/ckeditor.js"></script>
+<script src="../node_modules/ckeditor4-vue/dist/ckeditor.js"></script>
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+
   }
 }
 </script>
